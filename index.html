@@ -3,274 +3,1083 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Türkiye İller ve İlçeler</title>
+    <title>Gökhan SATMAZ | Kişisel Web Sitesi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        body {
+        :root {
+            --primary-color: #3a6ea5;
+            --secondary-color: #004e98;
+            --accent-color: #ff6b6b;
+            --light-bg: #f8f9fa;
+            --dark-bg: #343a40;
+            --white: #ffffff;
+            --text-color: #333;
+            --text-light: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            background-color: var(--light-bg);
             line-height: 1.6;
-            color: #333;
+        }
+        
+        .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
+            padding: 0 20px;
         }
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
-        h2 {
-            color: #2980b9;
-            margin-top: 30px;
-            border-left: 4px solid #3498db;
-            padding-left: 10px;
-        }
-        .search-container {
-            margin: 20px 0;
-        }
-        #searchInput {
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 20px 0;
+            position: fixed;
             width: 100%;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            font-size: 16px;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .region-filter {
+        
+        .header-container {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 20px 0;
+            justify-content: space-between;
+            align-items: center;
         }
-        .filter-btn {
-            background-color: #ecf0f1;
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--white);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        .nav-toggle {
+            display: none;
+            background: none;
             border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
+            color: var(--white);
+            font-size: 1.5rem;
             cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s;
         }
-        .filter-btn:hover {
-            background-color: #d5dbdb;
+        
+        nav ul {
+            display: flex;
+            list-style: none;
         }
-        .filter-btn.active {
-            background-color: #3498db;
-            color: white;
+        
+        nav ul li {
+            position: relative;
         }
-        .province-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+        
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            transition: background 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: url('https://picsum.photos/seed/gokhan/1600/900.jpg') no-repeat center center/cover;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin-top: 60px;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            color: var(--white);
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
             margin-top: 20px;
         }
-        .province-card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        
+        .social-links a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            color: var(--white);
+            text-decoration: none;
+            transition: transform 0.3s, background 0.3s;
         }
-        .province-card:hover {
+        
+        .social-links a:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: var(--secondary-color);
         }
-        .province-header {
-            background-color: #3498db;
-            color: white;
-            padding: 15px;
+        
+        .btn {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s;
+            margin: 10px;
+        }
+        
+        .btn:hover {
+            background: #e05555;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background: var(--white);
+        }
+        
+        .section-title {
             text-align: center;
-            font-weight: bold;
-            font-size: 18px;
+            margin-bottom: 50px;
         }
-        .district-list {
-            padding: 15px;
-            max-height: 300px;
-            overflow-y: auto;
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
         }
-        .district-item {
-            padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
+        
+        .section-title p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
         }
-        .district-item:last-child {
-            border-bottom: none;
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
         }
-        .no-results {
-            text-align: center;
-            grid-column: 1 / -1;
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+        }
+        
+        .skills {
+            margin-top: 30px;
+        }
+        
+        .skill-item {
+            margin-bottom: 15px;
+        }
+        
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+        
+        /* Experience Section */
+        .experience {
+            padding: 80px 0;
+            background: var(--light-bg);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background: var(--white);
+            border-radius: 6px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+            text-align: right;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::after {
+            right: -10px;
+        }
+        
+        .right::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
             padding: 20px;
-            background-color: #f8f8f8;
-            border-radius: 8px;
-            border: 1px solid #ddd;
+            position: relative;
         }
+        
+        .timeline-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .timeline-content .date {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        /* Projects Section */
+        .projects {
+            padding: 80px 0;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .project-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .project-image:hover img {
+            transform: scale(1.1);
+        }
+        
+        .project-content {
+            padding: 20px;
+        }
+        
+        .project-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .project-content p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .project-link {
+            display: inline-block;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .project-link:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background: var(--white);
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+        
+        .contact-details h3 {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+        
+        .contact-form {
+            background: var(--light-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: flex-direction: column;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form {
+                order: -1;
+            }
+        }
+        
         @media (max-width: 768px) {
-            .province-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            .nav-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--secondary-color);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                transform: translateY(-100%);
+                transition: transform 0.3s;
+                z-index: 999;
+            }
+            
+            nav ul.active {
+                transform: translateY(0);
+            }
+            
+            nav ul li {
+                width: 100%;
+            }
+            
+            nav ul li a {
+                width: 100%;
+                text-align: center;
+                padding: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                height: 70vh;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                display: block;
+                width: 80%;
+                margin: 10px auto;
+            }
+            
+            .social-links {
+                justify-content: center;
+                flex-wrap: wrap;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Türkiye İller ve İlçeler</h1>
-    
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="İl veya ilçe arayın...">
-    </div>
-    
-    <div class="region-filter">
-        <button class="filter-btn active" data-region="all">Tüm Bölgeler</button>
-        <button class="filter-btn" data-region="blacksea">Karadeniz Bölgesi</button>
-        <button class="filter-btn" data-region="mediterranean">Akdeniz Bölgesi</button>
-        <button class="filter-btn" data-region="marmara">Marmara Bölgesi</button>
-        <button class="filter-btn" data-region="aegean">Ege Bölgesi</button>
-        <button class="filter-btn" data-region="central">İç Anadolu Bölgesi</button>
-        <button class="filter-btn" data-region="eastern">Doğu Anadolu Bölgesi</button>
-        <button class="filter-btn" data-region="southeastern">Güneydoğu Anadolu Bölgesi</button>
-    </div>
-    
-    <div id="provinceContainer" class="province-grid">
-        <!-- Province cards will be dynamically inserted here -->
-    </div>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">Gökhan<span>SATMAZ</span></a>
+            <button id="menu-toggle" class="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="#anasayfa">Ana Sayfa</a></li>
+                    <li><a href="#hakkimizda">Hakkımızda</a></li>
+                    <li><a href="#deneyim">Deneyim</a></li>
+                    <li><a href="#projeler">Projelerim</a></li>
+                    <li><a href="#iletisim">İletişim</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <script>
-        // Turkey province and district data
-        const turkeyProvinces = {
-            "Karadeniz Bölgesi": {
-                "Adana": ["Aladağ", "Ceyhan", "Çukurova", "Feke", "İmamoğlu", "Karaisalı", "Kozan", "Pozantı", "Saimbeyli", "Sarıçam", "Seyhan", "Tufanbeyli", "Yumurtalık", "Yüreğir"],
-                "Adıyaman": ["Besni", "Çelikhan", "Gerger", "Gölbaşı", "Kahta", "Merkez", "Samsat", "Sincik", "Tut"],
-                "Afyonkarahisar": ["Başmakçı", "Bayat", "Bolvadin", "Çay", "Çobanlar", "Dazkırı", "Dinar", "Emirdağ", "Evciler", "Hocalar", "Ihsaniye", "Isparta", "Sandıklı", "Sinanpaşa", "Sultandağı", "Şuhut"],
-                "Ağrı": ["Diyadin", "Doğubayazıt", "Eleşkirt", "Hamur", "Merkez", "Patnos", "Taşlıçay", "Tutak"],
-                "Kastamonu": ["Abana", "Ağlı", "Araç", "Azdavay", "Bozkurt", "Cide", "Çatalzeytin", "Daday", "Devrekani", "Doğanyurt", "Hanönü", "İnebolu", "Küre", "Merkez", "Pınarbaşı", "Şenpazar", "Taşköprü", "Tosya"]
-            },
-            "Akdeniz Bölgesi": {
-                "Antalya": ["Akseki", "Aksu", "Alanya", "Demre", "Döşemealtı", "Elmalı", "Finike", "Gazipaşa", "Gündoğmuş", "İbradı", "Kaş", "Kemer", "Kepez", "Konyaaltı", "Korkuteli", "Kumluca", "Manavgat", "Muratpaşa", "Serik"],
-                "Hatay": ["Altınözü", "Antakya", "Arsuz", "Belen", "Defne", "Dörtyol", "Erzin", "Hassa", "İskenderun", "Kırıkhan", "Kumlu", "Payas", "Reyhanlı", "Samandağ", "Yayladağı"],
-                "Mersin": ["Akdeniz", "Anamur", "Aydıncık", "Bozyazı", "Çamlıyayla", "Erdemli", "Gülnar", "Mezitli", "Mut", "Silifke", "Tarsus", "Toroslar", "Yenişehir"]
-            },
-            "Marmara Bölgesi": {
-                "İstanbul": ["Adalar", "Arnavutköy", "Ataşehir", "Avcılar", "Bağcılar", "Bahçelievler", "Bakırköy", "Başakşehir", "Bayrampaşa", "Beşiktaş", "Beykoz", "Beylikdüzü", "Beyoğlu", "Büyükçekmece", "Çatalca", "Çekmeköy", "Esenler", "Esenyurt", "Eyüpsultan", "Fatih", "Gaziosmanpaşa", "Güngören", "Kadıköy", "Kağıthane", "Kartal", "Küçükçekmece", "Maltepe", "Pendik", "Sancaktepe", "Sarıyer", "Silivri", "Sultanbeyli", "Sultangazi", "Şile", "Şişli", "Ümraniye", "Üsküdar", "Zeytinburnu"],
-                "Bursa": ["Büyükorhan", "Gemlik", "Gürü", "Harmancık", "İnegöl", "İznik", "Karacabey", "Keles", "Kestel", "Mudanya", "Mustafakemalpaşa", "Nilüfer", "Orhaneli", "Orhangazi", "Osmangazi", "Yenişehir", "Yıldırım"],
-                "Kocaeli": ["Darıca", "Çayırova", "Darıca", "Derince", "Dilovası", "Gebze", "Gölcük", "İzmit", "Kandıra", "Karamürsel", "Kartepe", "Körfez"],
-                "Tekirdağ": ["Çerkezköy", "Çorlu", "Ergene", "Hayrabolu", "Kapaklı", "Malkara", "Marmaraereğlisi", "Çorlu", "Sarıçam", "Süleymanpaşa", "Şarköy"]
-            },
-            "Ege Bölgesi": {
-                "İzmir": ["Aliağa", "Balçova", "Bayındır", "Bayraklı", "Bergama", "Beydağ", "Bornova", "Buca", "Çeşme", "Çiğli", "Dikili", "Foça", "Gaziemir", "Güzelbahçe", "Karabağlar", "Karaburun", "Karşıyaka", "Kemalpaşa", "Kınık", "Kiraz", "Konak", "Menderes", "Menemen", "Narlıdere", "Ödemiş", "Seferihisar", "Selçuk", "Tire", "Torbalı", "Urla"],
-                "Aydın": ["Bozdoğan", "Buharkent", "Çine", "Didim", "Efeler", "Germencik", "İncirliova", "Karacasu", "Karpuzlu", "Koçarlı", "Kuşadası", "Kuyucak", "Nazilli", "Söke", "Sultanhisar", "Yenipazar"],
-                "Muğla": ["Bodrum", "Dalaman", "Datça", "Fethiye", "Göcek", "Güllük", "Kavaklıdere", "Köyceğiz", "Marmaris", "Menteşe", "Milas", "Ortaca", "Seydikemer", "Ula", "Yatağan"]
-            },
-            "İç Anadolu Bölgesi": {
-                "Ankara": ["Akyurt", "Altındağ", "Ayaş", "Beypazarı", "Çankaya", "Çubuk", "Etimesgut", "Evren", "Gölbaşı", "Güdül", "Haymana", "Kalecik", "Kazan", "Keçiören", "Kızılcahamam", "Mamak", "Nallıhan", "Polatlı", "Pursaklar", "Sincan", "Şereflikoçhisar", "Yenimahalle"],
-                "Konya": ["Ağaçören", "Akşehir", "Altınekin", "Ayrancı", "Beyşehir", "Bozkır", "Cihanbeyli", "Cıvılar", "Doğanhisar", "Döşemealtı", "Emirgazi", "Ereğli", "Güney", "Halkapınar", "Hüyük", "Ilgın", "Kadınhanı", "Karapınar", "Karatay", "Kulu", "Meram", "Sarayönü", "Selçuklu", "Seydişehir", "Taşkent", "Tuzlukçu", "Yalıhüyük", "Yunak"],
-                "Kırşehir": ["Ağaçören", "Akpınar", "Boztepe", "Gülşehir", "Kaman", "Merkez", "Mucur"]
-            },
-            "Doğu Anadolu Bölgesi": {
-                "Erzurum": ["Aşkale", "Aziziye", "Çat", "Hınıs", "Horasan", "İspir", "Karaçoban", "Karayazı", "Köprüköy", "Narman", "Oltu", "Olur", "Palandöken", "Pasinler", "Pazaryolu", "Şenkaya", "Tekman", "Tortum", "Uzundere", "Yakutiye"],
-                "Ağrı": ["Diyadin", "Doğubayazıt", "Eleşkirt", "Hamur", "Merkez", "Patnos", "Tutak"],
-                "Iğdır": ["Aralık", "Karakoçan", "Merkez", "Tuzluca"],
-                "Erzincan": ["Çayırlı", "İliç", "Kemah", "Kemaliye", "Merkez", "Otlukbeli", "Refahiye", "Tercan", "Üzümlü"],
-                "Kars": ["Akyaka", "Arpaçay", "Digor", "Kağızman", "Merkez", "Sarıkamış", "Selim", "Susuz"],
-                "Iğdır": ["Aralık", "Karakoçan", "Merkez", "Tuzluca"],
-                "Kars": ["Akyaka", "Arpaçay", "Digor", "Kağızman", "Merkez", "Sarıkamış", "Selim", "Susuz"],
-                "Kars": ["Akyaka", "Arpaçay", "Digor", "Kağızman", "Merkez", "Sarıkamış", "Selim", "Susuz"],
-                "Kars": ["Akyaka", "Arpaçay", "Digor", "Kağızman", "Merkez", "Sarıkamış", "Selim", "Susuz"]
-            },
-            "Güneydoğu Anadolu Bölgesi": {
-                "Gaziantep": ["Güneşli", "İslahiye", "Karkamış", "Nizip", "Nurdağı", "Oğuzeli", "Şahinbey", "Şehitkamil", "Yavuzeli"],
-                "Batman": ["Beşiri", "Gercüş", "Hasankeyf", "Kozluk", "Merkez", "Sason"],
-                "Şırnak": ["Beytüşşebap", "Cizre", "Güçlükonak", "İdil", "Merkez", "Silopi", "Uludere"],
-                "Mardin": ["Dargeçit", "Kızıltepe", "Mazıdağı", "Midyat", "Nusaybin", "Ömerli", "Savur", "Artuklu", "Yeşilli"],
-                "Siirt": ["Baykan", "Eruh", "Kurtalan", "Merkez", "Pervari", "Şirvan", "Tillo"]
-            }
-        };
+    <!-- Hero Section -->
+    <section class="hero" id="anasayfa">
+        <div class="hero-content">
+            <h1>Merhaba, Ben Gökhan SATMAZ</h1>
+            <p>Web Geliştirme ve Tasarımcı</p>
+            <div class="social-links">
+                <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+            <a href="#projeler" class="btn">Projelerime Göz At</a>
+        </div>
+    </section>
 
-        // Function to create province cards
-        function createProvinceCard(province) {
-            const districts = turkeyProvinces[Object.keys(turkeyProvinces).find(region => 
-                turkeyProvinces[region].hasOwnProperty(province)
-            )][province];
+    <!-- About Section -->
+    <section class="about" id="hakkimizda">
+        <div class="container">
+            <div class="section-title">
+                <h2>Hakkımda</h2>
+                <p>Ben kimim ve ne yapıyorum</p>
+            </div>
             
-            let districtsList = '';
-            districts.forEach(district => {
-                districtsList += `<div class="district-item">${district}</div>`;
-            });
-            
-            return `
-                <div class="province-card" data-region="${Object.keys(turkeyProvinces).find(region => 
-                turkeyProvinces[region].hasOwnProperty(province)
-            )}">
-                    <div class="province-header">${province}</div>
-                    <div class="district-list">
-                        ${districtsList}
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://picsum.photos/seed/gokhan-profile/600/600.jpg" alt="Gökhan SATMAZ">
+                </div>
+                
+                <div class="about-text">
+                    <h3>Web Geliştirme ve Tasarım </h3>
+                    <p>Merhaba! Ben Gökhan SATMAZ,Web siteleri, mobil uygulamalar ve kullanıcı arayüzleri tasarlayıp geliştirmekten büyük keyif alıyorum.</>
+                    <p>Başarılı projelerimle işletmelerine dijital dönüşüm yolculuğunda yardımcı olmaktan mutluluk duyarım. Teknolojiyi ve tasarımı birleştiren çözümler sunarak müşterilerimin hedeflerine ulaşmasını sağlıyorum.</p>
+                    
+                    <div class="skills">
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>HTML/CSS</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 95%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>JavaScript</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>React</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>UI/UX Tasarım</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 80%;"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            `;
-        }
+            </div>
+        </div>
+    </section>
 
-        // Function to display provinces
-        function displayProvinces(provincesToShow) {
-            const provinceContainer = document.getElementById('provinceContainer');
-            provinceContainer.innerHTML = '';
+    <!-- Experience Section -->
+    <section class="experience" id="deneyim">
+        <div class="container">
+            <div class="section-title">
+                <h2>Deneyimlerim</h2>
+                <p>Kariyerim boyunca edindiğim deneyimler</p>
+            </div>
             
-            if (provincesToShow.length === 0) {
-                provinceContainer.innerHTML = '<div class="no-results">Aradığınız kriterlere uygun il bulunamadı.</div>';
-                return;
-            }
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <span class="date">2020 - Günümüz</span>
+                        <h3>Kıdemli Web Geliştiricisi</h3>
+                        <p>Teknoloji Şirketi, İstanbul</p>
+                        <p>Web uygulama geliştirme ekibinin liderliğini yapıyorum. Büyük ölçekli projelerde arayüz tasarımı, kullanıcı deneyimi optimizasyonu ve frontend geliştirme sorumluluğum var. Takım yönetimi ve proje yönetimi deneyimim mevcuttur.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <span class="date">2018 - 2020</span>
+                        <h3>Web Geliştiricisi</h3>
+                        <p>Dijital Pazarlama Ajansı, Ankara</p>
+                        <p>Dijital pazarlama kampanyaları için web siteleri ve mobil uygulamalar geliştirdim. SEO uyumlu web siteleri tasarlayarak müşterilerin dijital varlıklarını güçlendirdim. E-ticaret platformlarının entegrasyonu ve optimizasyonu konusunda uzmanlaştım.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <span class="date">2016 - 2018</span>
+                        <h3>Web Tasarımcısı</h3>
+                        <p>Reklam Ajansı, İzmir</p>
+                        <p>Marka kimliği doğrultusunda web siteleri ve mobil arayüzleri tasarladım. Kullanıcı deneyimini artırmak için araştırma ve testler yaptım. Grafik tasarım ve motion graphics yeteneklerimi kullanarak interaktif ve görsel açıdan çekici çözümler ürettim.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <span class="date">2015 - 2016</span>
+                        <h3>Frontend Geliştirme Stajyeri</h3>
+                        <p>Web Tasarım Ajansı, Bursa</p>
+                        <p>Temel HTML, CSS ve JavaScript projelerine katıldım. Ekip işbirliği içinde çalışarak küçük ölçekli web siteleri ve şablonlar geliştirdim. Profesyonel web geliştirme süreçleri ve en iyi uygulamalar hakkında temel bilgiler edindim.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projeler">
+        <div class="container">
+            <div class="section-title">
+                <h2>Projelerim</h2>
+                <p>Yapmış olduğum bazı projeler</p>
+            </div>
             
-            provincesToShow.forEach(province => {
-                provinceContainer.innerHTML += createProvinceCard(province);
-            });
-        }
-
-        // Initial display
-        const allProvinces = Object.values(turkeyProvinces).flatMap(region => Object.keys(region));
-        displayProvinces(allProvinces);
-
-        // Filter functionality
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Update active button
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://picsum.photos/seed/project1/600/400.jpg" alt="E-ticaret Sitesi">
+                    </div>
+                    <div class="project-content">
+                        <h3>E-ticaret Sitesi</h3>
+                        <p>Ünlü bir giyim markası için tasarlanmış ve geliştirilmiş modern e-ticaret platformu. Kullanıcı dostu arayüz ve hızlı performans özellikleriyle dikkat çekiyor.</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                            <a href="#" class="project-link"><i class="fas fa-code"></i> Kaynak Kod</a>
+                        </div>
+                    </div>
+                </div>
                 
-                const region = button.getAttribute('data-region');
-                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://picsum.photos/seed/project2/600/400.jpg" alt="Mobil Uygulama">
+                    </div>
+                    <div class="project-content">
+                        <h3>Fitness Uygulaması</h3>
+                        <p>Sağlık ve fitness meraklıları için geliştirilmiş mobil uygulama. Kişiye özel egzersiz programları, beslenme takibi ve sosyal özellikler sunuyor.</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                            <a href="#" class="project-link"><i class="fas fa-code"></i> Kaynak Kod</a>
+                        </div>
+                    </div>
+                </div>
                 
-                let filteredProvinces;
-                if (region === 'all') {
-                    filteredProvinces = allProvinces.filter(province => 
-                        province.toLowerCase().includes(searchTerm)
-                    );
-                } else {
-                    const provincesInRegion = Object.keys(turkeyProvinces[region]);
-                    filteredProvinces = provincesInRegion.filter(province => 
-                        province.toLowerCase().includes(searchTerm)
-                    );
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://picsum.photos/seed/project3/600/400.jpg" alt="Blog Platformu">
+                    </div>
+                    <div class="project-content">
+                        <h3>Blog Platformu</h3>
+                        <p>Yazı ve içerik üreticileri için tasarlanmış modern blog platformu. SEO optimizasyonu, kullanıcı yönetimi ve içerik yönetimi özellikleri içeriyor.</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                            <a href="#" class="project-link"><i class="fas fa-code"></i> Kaynak Kod</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://picsum.photos/seed/project4/600/400.jpg" alt="Web Portalı">
+                    </div>
+                    <div class="project-content">
+                        <h3>Web Portalı</h3>
+                        <p>Büyük bir kurumsal müşteri için geliştirilmiş intranet portalı. Çoklu kullanıcı erişimi, rol tabanlı erişim kontrolü ve raporlama özellikleri sunuyor.</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                            <a href="#" class="project-link"><i class="fas fa-code"></i> Kaynak Kod</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://picsum.photos/seed/project5/600/400.jpg" alt="Mobil Uygulama">
+                    </div>
+                    <div class="project-content">
+                        <h3>Rehberlik Uygulaması</h3>
+                        <p>Turistik bir bölge için geliştirilmiş mobil rehberlik uygulaması. Harita entegrasyonu, yerel işletmeler ve etkinlikler hakkında bilgi sunuyor.</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                            <a href="#" class="project-link"><i class="fas fa-code"></i> Kaynak Kod</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://picsum.photos/seed/project6/600/400.jpg" alt="E-ticaret Sitesi">
+                    </div>
+                    <div class="project-content">
+                        <h3>Yerel Ürünler E-ticaret Sitesi</h3>
+                        <p>Yerel sanatkarlar ve üreticiler için tasarlanmış e-ticaret platformu. Ürün yönetimi, sipariş takibi ve ödeme entegrasyonları içeriyor.</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                            <a href="#" class="project-link"><i class="fas fa-code"></i> Kaynak Kod</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="iletisim">
+        <div class="container">
+            <div class="section-title">
+                <h2>İletişim</h2>
+                <p>Bana ulaşın</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>İletişim Bilgilerim</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Adres</h3>
+                            <p>Hatay, Türkiye</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Telefon</h3>
+                            <p>+90 5XX XXX XX XX</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>E-posta</h3>
+                            <p>gokhan.satmaz@example.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Web Sitesi</h3>
+                            <p>www.gokhansatmaz.com</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Mesaj Bırakın</h3>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Adınız</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">E-posta Adresiniz</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Konu</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Mesajınız</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Mesajı Gönder</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Gökhan SATMAZ</h3>
+                    <p>Web Geliştirme ve Tasarım </p>
+                    <div class="social-links">
+                        <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Hızlı Linkler</h3>
+                    <ul class="footer-links">
+                        <li><a href="#anasayfa">Ana Sayfa</a></li>
+                        <li><a href="#hakkimizda">Hakkımda</a></li>
+                        <li><a href="#deneyim">Deneyim</a></li>
+                        <li><a href="#projeler">Projelerim</a></li>
+                        <li><a href="#iletisim">İletişim</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Hizmetlerim</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Web Sitesi Geliştirme</a></li>
+                        <li><a href="#">Mobil Uygulama</a></li>
+                        <li><a href="#">UI/UX Tasarım</a></li>
+                        <li><a href="#">SEO Optimizasyonu</a></li>
+                        <li><a href="#">Dijital Pazarlama</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Bülten</h3>
+                    <p>En son güncellemeler ve projelerden haberdar olun.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="E-posta adresiniz">
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Abone Ol</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Gökhan SATMAZ. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('main-nav').classList.toggle('active');
+        });
+        
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.getElementById('main-nav').classList.remove('active');
                 }
-                
-                displayProvinces(filteredProvinces);
             });
         });
-
-        // Search functionality
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            const activeRegion = document.querySelector('.filter-btn.active').getAttribute('data-region');
+        
+        // Contact Form
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            let filteredProvinces;
-            if (activeRegion === 'all') {
-                filteredProvinces = allProvinces.filter(province => 
-                    province.toLowerCase().includes(searchTerm)
-                );
-            } else {
-                const provincesInRegion = Object.keys(turkeyProvinces[activeRegion]);
-                filteredProvinces = provincesInRegion.filter(province => 
-                    province.toLowerCase().includes(searchTerm)
-                );
-            }
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
             
-            displayProvinces(filteredProvinces);
+            // Here you would typically send the form data to a server
+            // For this example, we'll just show a success message
+            
+            // Create a toast notification instead of using alert
+            const toast = document.createElement('div');
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.right = '20px';
+            toast.style.backgroundColor = 'var(--primary-color)';
+            toast.style.color = 'var(--white)';
+            toast.style.padding = '15px 25px';
+            toast.style.borderRadius = '5px';
+            toast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+            toast.style.zIndex = '1000';
+            toast.style.transition = 'opacity 0.3s, transform 0.3s';
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(20px)';
+            
+            toast.innerHTML = `<strong>Teşekkürler, ${name}!</strong> Mesajınızı aldık. En kısa sürede size geri döneceğiz.`;
+            
+            document.body.appendChild(toast);
+            
+            // Show the toast
+            setTimeout(() => {
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateY(0)';
+            }, 10);
+            
+            // Hide and the toast after 5 seconds
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 5000);
+            
+            // Clear the form
+            this.reset();
         });
     </script>
 </body>
